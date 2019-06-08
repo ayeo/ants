@@ -5,21 +5,20 @@ from colorsys import rgb_to_hls, hls_to_rgb
 from core.Board import Board
 
 class Pheromones(pygame.sprite.Sprite):
-    def __init__(self, tail_size, board: Board):
+    def __init__(self, tail_size, board: Board, color):
         pygame.sprite.Sprite.__init__(self)
         self.board = board
         self.tail_size = tail_size
         self.image = pygame.Surface((tail_size * board.size, tail_size * board.size))
-        self.image.fill((100, 255, 100))
+        self.image.fill(color)
         self.rect = self.image.get_rect()
         self.rect.left = 0
         self.rect.top = 0
 
         c = [0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.15, 0.1]
         self.colors = []
-        base_color = (100, 255, 100)
         for x in range(10):
-            self.colors.append(self.adjust_color_lightness(base_color, c[x]))
+            self.colors.append(self.adjust_color_lightness(color, c[x]))
 
 
     def update(self, *args):

@@ -10,6 +10,9 @@ DELAY = 10
 RHO = .01
 ANTS = 30
 
+GRASS_COLOR = (70, 130, 70)
+ANT_COLOR = (40, 20, 10)
+
 pygame.init()
 pygame.mixer.init()
 screen = pygame.display.set_mode((SIZE*TAIL_SIZE, SIZE*TAIL_SIZE))
@@ -21,7 +24,7 @@ board.nest((int(SIZE/2), int(SIZE/2)))
 for i in range(ANTS):
     board.breed()
 
-mapper = Mapper(board, TAIL_SIZE)
+mapper = Mapper(board, TAIL_SIZE, GRASS_COLOR, ANT_COLOR)
 
 running = True
 while running:

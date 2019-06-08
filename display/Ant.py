@@ -1,11 +1,11 @@
 import pygame
 
 class Ant(pygame.sprite.Sprite):
-    def __init__(self, id, pos, tail_size):
+    def __init__(self, id, pos, tail_size, ant_color):
         pygame.sprite.Sprite.__init__(self)
         self.id = id
         self.image = pygame.Surface((tail_size, tail_size))
-        self.image.fill((0, 0, 0))
+        self.image.fill(ant_color)
         self.rect = self.image.get_rect()
         self.rect.center = pos
 
