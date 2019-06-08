@@ -1,59 +1,45 @@
 import pygame
-import random
 
-WIDTH = 360
-HEIGHT = 480
+from core.Board import Board
+from display.mapper import Mapper
+
 FPS = 30
+SIZE = 100
+TAIL_SIZE = 5
+DELAY = 10
+RHO = .01
+ANTS = 30
 
-# define colors
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-RED = (255, 0, 0)
-GREEN = (0, 255, 0)
-BLUE = (0, 0, 255)
-
-# initialize pygame and create window
 pygame.init()
 pygame.mixer.init()
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
+screen = pygame.display.set_mode((SIZE*TAIL_SIZE, SIZE*TAIL_SIZE))
 pygame.display.set_caption("Ants")
 clock = pygame.time.Clock()
-all_sprites = pygame.sprite.Group()
 
-class Player(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface((50, 50))
-        self.image.fill(GREEN)
-        self.rect = self.image.get_rect()
-        self.rect.center = (WIDTH / 2, HEIGHT / 2)
+board = Board(SIZE)
+board.nest((int(SIZE/2), int(SIZE/2)))
+for i in range(ANTS):
+    board.breed()
 
-    def update(self):
-        self.rect.x += 5
+mapper = Mapper(board, TAIL_SIZE)
 
-
-player = Player()
-all_sprites.add(player)
-
-# Game loop
 running = True
 while running:
-    # keep loop running at the right speed
     clock.tick(FPS)
-    # Process input (events)
     for event in pygame.event.get():
-        # check for closing window
         if event.type == pygame.QUIT:
             running = False
 
-    # Update
-    all_sprites.update()
+    board.update()
+    board.evaporate(RHO)
+    pheromones = mapper.getPheromones()
+    pheromones.update()
+    pheromones.draw(screen)
 
-    # Draw / render
-    screen.fill(BLACK)
-    all_sprites.draw(screen)
-
-    # *after* drawing everything, flip the display
+    ants = mapper.getAnts()
+    ants.update()
+    ants.draw(screen)
     pygame.display.flip()
+    pygame.time.delay(DELAY)
 
 pygame.quit()
