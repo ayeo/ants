@@ -10,8 +10,8 @@ DELAY = 10
 RHO = .01
 ANTS = 30
 
-GRASS_COLOR = (70, 130, 70)
-ANT_COLOR = (40, 20, 10)
+GRASS_COLOR = (252, 233, 88)
+ANT_COLOR = (135, 51, 25)
 
 pygame.init()
 pygame.mixer.init()
