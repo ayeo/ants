@@ -3,6 +3,7 @@ from core import World
 
 class Ant():
     board: World
+    carrying = False
 
     def __init__(self, id, board: World, position):
         self.id = id
@@ -16,13 +17,24 @@ class Ant():
         if position in self.breadcrumb:
             return 0
 
-        if position[0]>=self.board.size or position[0]<0:
+        if position[0] >= self.board.size or position[0] < 0:
             return 0
 
-        if position[1]>=self.board.size or position[1]<0:
+        if (position in self.board.foods):
+            self.carrying = True
+            self.breadcrumb = []
+
+        if (position == self.board.nest_position):
+            self.carrying = False
+            self.breadcrumb = []
+
+        if position[1] >= self.board.size or position[1] < 0:
             return 0
 
-        return 1 #self.board.pheromones[pos]
+        if (self.carrying):
+            return self.board.pheromones[position]
+        else:
+            return 1
 
     def change_position(self, move):
         self.board.leave_pheromone(self.position, 1)
@@ -39,6 +51,6 @@ class Ant():
             self.breadcrumb = []
             return self.update()
 
-        probabilities = [a/sum(moves) for a in moves]
+        probabilities = [a / sum(moves) for a in moves]
         move = np.random.choice([z[0] for z in enumerate(moves)], p=probabilities)
         self.change_position(move)

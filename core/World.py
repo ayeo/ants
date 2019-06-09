@@ -4,6 +4,7 @@ from core.Ant import Ant
 
 class World():
     ants = []
+    foods = []
 
     def __init__(self, size):
         self.pheromones = np.full((size, size), 0.1, dtype=float)
@@ -13,6 +14,8 @@ class World():
     def nest(self, position: (int, int)):
         self.nest_position = position
 
+    def food(self, position: (int, int)): #todo add quantity
+        self.foods.append(position)
 
     def breed(self) -> Ant:
         ant = Ant(len(self.ants), self, self.nest_position)
@@ -24,7 +27,7 @@ class World():
 
 
     def leave_pheromone(self, pos, quantity):
-        self.pheromones[pos] = self.pheromones[pos] + quantity
+        self.pheromones[pos] = self.pheromones[pos]+quantity
 
 
     def evaporate(self, quantity):

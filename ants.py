@@ -6,12 +6,14 @@ from display.Mapper import Mapper
 FPS = 30
 SIZE = 100
 TAIL_SIZE = 5
-DELAY = 10
-RHO = .01
+DELAY = 0
+RHO = .005
 ANTS = 30
 
 GRASS_COLOR = (252, 233, 88)
 ANT_COLOR = (135, 51, 25)
+NEST_COLOR = (255, 255, 255)
+FOOD_COLOR = (20, 100, 10)
 
 pygame.init()
 pygame.mixer.init()
@@ -21,11 +23,11 @@ clock = pygame.time.Clock()
 
 board = World(SIZE)
 board.nest((int(SIZE/2), int(SIZE/2)))
-#board.food((10, 10))
+board.food((10, 10))
 for i in range(ANTS):
     board.breed()
 
-mapper = Mapper(board, TAIL_SIZE, GRASS_COLOR, ANT_COLOR)
+mapper = Mapper(board, TAIL_SIZE, GRASS_COLOR, ANT_COLOR, NEST_COLOR, FOOD_COLOR)
 
 running = True
 while running:
