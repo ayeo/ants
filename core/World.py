@@ -2,7 +2,7 @@ import numpy as np
 
 from core.Ant import Ant
 
-class Board():
+class World():
     ants = []
 
     def __init__(self, size):
@@ -24,12 +24,6 @@ class Board():
 
 
     def leave_pheromone(self, pos, quantity):
-        if pos[0] >= self.size or pos[0] < 0:
-            return
-
-        if pos[1] >= self.size or pos[1] < 0:
-            return
-
         self.pheromones[pos] = self.pheromones[pos] + quantity
 
 

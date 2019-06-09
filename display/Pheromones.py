@@ -2,10 +2,10 @@ import pygame
 import math
 
 from colorsys import rgb_to_hls, hls_to_rgb
-from core.Board import Board
+from core.World import World
 
 class Pheromones(pygame.sprite.Sprite):
-    def __init__(self, tail_size, board: Board, color):
+    def __init__(self, tail_size, board: World, color):
         pygame.sprite.Sprite.__init__(self)
         self.board = board
         self.tail_size = tail_size

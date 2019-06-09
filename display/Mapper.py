@@ -1,11 +1,11 @@
 import pygame
 
-from core import Board
+from core import World
 from display.Pheromones import Pheromones
 from display.Ant import Ant
 
 class Mapper():
-    def __init__(self, board: Board, tail_size, grass_color, ant_color):
+    def __init__(self, board: World, tail_size, grass_color, ant_color):
         self.board = board
         self.grass_color = grass_color
         self.tail_size = tail_size

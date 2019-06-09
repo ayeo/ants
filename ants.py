@@ -1,7 +1,7 @@
 import pygame
 
-from core.Board import Board
-from display.mapper import Mapper
+from core.World import World
+from display.Mapper import Mapper
 
 FPS = 30
 SIZE = 100
@@ -19,8 +19,9 @@ screen = pygame.display.set_mode((SIZE*TAIL_SIZE, SIZE*TAIL_SIZE))
 pygame.display.set_caption("Ants")
 clock = pygame.time.Clock()
 
-board = Board(SIZE)
+board = World(SIZE)
 board.nest((int(SIZE/2), int(SIZE/2)))
+#board.food((10, 10))
 for i in range(ANTS):
     board.breed()
 

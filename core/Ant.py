@@ -1,10 +1,10 @@
 import numpy as np
-from core import Board
+from core import World
 
 class Ant():
-    board: Board
+    board: World
 
-    def __init__(self, id, board, position):
+    def __init__(self, id, board: World, position):
         self.id = id
         self.board = board
         self.position = position
@@ -12,10 +12,16 @@ class Ant():
         self.moves = ((0, 1), (0, -1), (1, 0), (-1, 0)) # up, down, right, left
 
     def move_values(self, change):
-        current = np.array(self.position)
-        pos = tuple(current + change)
-        if pos in self.breadcrumb:
+        position = tuple(np.array(self.position)+change)
+        if position in self.breadcrumb:
             return 0
+
+        if position[0]>=self.board.size or position[0]<0:
+            return 0
+
+        if position[1]>=self.board.size or position[1]<0:
+            return 0
+
         return 1 #self.board.pheromones[pos]
 
     def change_position(self, move):
